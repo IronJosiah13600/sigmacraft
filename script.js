@@ -257,6 +257,7 @@ function addToDiscovered(element) {
     if (!discoveredElements.includes(element)) {
         discoveredElements.push(element);
         updateElementsMenu(); // Update elements menu with newly discovered elements
+        showNewElementMessage(element); // Show new element message
     }
 }
 
@@ -289,6 +290,16 @@ function addElementButtonListeners() {
             addToSelected(element); // Add element to selected list
         });
     });
+}
+
+// Function to show a new element created message
+function showNewElementMessage(element) {
+    let message = document.getElementById("new-element-message");
+    message.textContent = `New element created: ${element}`;
+    message.style.display = "block";
+    setTimeout(() => {
+        message.style.display = "none";
+    }, 3000); // Hide the message after 3 seconds
 }
 
 // Add event listeners for initial element buttons
