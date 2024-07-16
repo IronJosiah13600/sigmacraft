@@ -79,7 +79,7 @@
                 'metal', 'electricity', 'life', 'plant', 'animal', 'tree',
                 'human', 'sand', 'glass', 'time', 'solar panel', 'telescope',
                 'wind', 'mountain', 'day', 'night', 'rock', 'wood', 'coal',
-                'solar system', 'moon system', 'planet', 'universe', 'galaxy', 'star'
+                'solar system', 'moon system', 'planet', 'universe', 'galaxy', 'star', 'sun'
             ]);
 
             // Combinations and resulting elements
@@ -113,11 +113,8 @@
                 'timeanimal': 'human',
                 'galaxysun': 'solar system',
                 'galaxymoon': 'moon system',
-                'earthearth': 'planet',
-                'galaxyplanet': 'universe',
-                'timegalaxy': 'universe',
-                'planetsun': 'star',
-                'planetstar': 'galaxy'
+                'planetplanet': 'galaxy',
+                'planet+star': 'sun'
             };
 
             let selectedElements = [];
@@ -152,7 +149,7 @@
 
             function combineElements() {
                 if (selectedElements.length === 2) {
-                    const combinationKey = selectedElements.sort().join('');
+                    const combinationKey = selectedElements.sort().join('+');
                     const result = combinations[combinationKey];
 
                     if (result && !elements.includes(result)) {
