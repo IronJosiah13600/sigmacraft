@@ -30,6 +30,8 @@ let elements = {
     // ... (all 25 elements and their combinations)
 };
 
+let selectedElements = []; // Array to store selected elements
+
 // Function to update the UI with selected elements
 function updateSelectedElements() {
     let selectedList = document.getElementById("selected-list");
@@ -72,6 +74,26 @@ function combineSelectedElements() {
         console.log("Select at least two elements to combine.");
         // Display a message or alert to select at least two elements
     }
+}
+
+// Function to add a newly discovered element to the discovered list
+function addToDiscovered(element) {
+    if (!discoveredElements.includes(element)) {
+        discoveredElements.push(element);
+        updateDiscoveredList(); // Update UI with newly discovered element
+    }
+}
+
+// Function to update the UI with discovered elements
+function updateDiscoveredList() {
+    let discoveredList = document.getElementById("discovered-list");
+    discoveredList.innerHTML = ""; // Clear existing list
+
+    discoveredElements.forEach(element => {
+        let li = document.createElement("li");
+        li.textContent = element;
+        discoveredList.appendChild(li);
+    });
 }
 
 // Add event listeners for element buttons
