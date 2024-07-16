@@ -123,7 +123,7 @@ function updateDiscoveredList() {
     updateElementsMenu(); // Update elements menu with newly discovered elements
 }
 
-// Function to update the elements menu with discovered elements
+// Function to update the elements menu with all elements (discovered and undiscovered)
 function updateElementsMenu() {
     let elementsMenu = document.getElementById("elements-menu");
     elementsMenu.innerHTML = ""; // Clear existing menu
@@ -134,10 +134,19 @@ function updateElementsMenu() {
         button.textContent = element;
         button.classList.add("element");
         button.setAttribute("data-element", element);
-        if (discoveredElements.includes(element)) {
-            elementsMenu.appendChild(button); // Add button only if element is discovered
-        }
+        elementsMenu.appendChild(button); // Always add button for defined elements
     }
+
+    // Add buttons for discovered elements
+    discoveredElements.forEach(element => {
+        if (!elements[element]) {
+            let button = document.createElement("button");
+            button.textContent = element;
+            button.classList.add("element");
+            button.setAttribute("data-element", element);
+            elementsMenu.appendChild(button);
+        }
+    });
 
     // Add event listeners to newly added buttons
     addElementButtonListeners();
