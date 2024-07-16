@@ -1,34 +1,34 @@
 // Define initial discovered elements
 let discoveredElements = ["air", "fire", "water", "earth"];
 
-// // Define all elements and their combinations
-// let elements = {
-//     "earth": {
-//         combinations: {
-//             "air": "dust",
-//             "fire": "lava",
-//             "water": "mud"
-//         }
-//     },
-//     "air": {
-//         combinations: {
-//             "fire": "energy",
-//             "water": "mist"
-//         }
-//     },
-//     "fire": {
-//         combinations: {
-//             "water": "steam"
-//         }
-//     },
-//     "water": {
-//         combinations: {
-//             "fire": "steam"
-//         }
-//     },
-//     // Additional elements and combinations
-//     // ... (all 25 elements and their combinations)
-// };
+// Define all elements and their combinations
+let elements = {
+    "earth": {
+        combinations: {
+            "air": "dust",
+            "fire": "lava",
+            "water": "mud"
+        }
+    },
+    "air": {
+        combinations: {
+            "fire": "energy",
+            "water": "mist"
+        }
+    },
+    "fire": {
+        combinations: {
+            "water": "steam"
+        }
+    },
+    "water": {
+        combinations: {
+            "fire": "steam"
+        }
+    },
+    // Additional elements and combinations
+    // ... (all 25 elements and their combinations)
+};
 
 let selectedElements = []; // Array to store selected elements
 
@@ -64,7 +64,14 @@ function combineSelectedElements() {
             addToDiscovered(newElement); // Add newly discovered element to discovered list
         } else {
             console.log(`No combination found for ${element1} and ${element2}`);
-            // Display a message or handle the case where no combination exists
+            // Check combinations with discovered elements
+            let discoveredCombination = checkDiscoveredCombinations(selectedElements);
+            if (discoveredCombination) {
+                addToDiscovered(discoveredCombination); // Add discovered combination to discovered list
+            } else {
+                console.log("No valid combination found.");
+                // Display a message or handle the case where no combination exists
+            }
         }
 
         // Clear selected elements after combining
@@ -74,6 +81,20 @@ function combineSelectedElements() {
         console.log("Select at least two elements to combine.");
         // Display a message or alert to select at least two elements
     }
+}
+
+// Function to check combinations with discovered elements
+function checkDiscoveredCombinations(selectedElements) {
+    for (let element of discoveredElements) {
+        if (elements[element] && elements[element].combinations) {
+            for (let key in elements[element].combinations) {
+                if (selectedElements.includes(key)) {
+                    return elements[element].combinations[key];
+                }
+            }
+        }
+    }
+    return null;
 }
 
 // Function to add a newly discovered element to the discovered list
