@@ -1,14 +1,14 @@
 let discoveredElements = ['earth', 'air', 'fire', 'water']; // Starting elements
 
 const combinations = {
-    'water+fire': 'steam',
     'earth+fire': 'lava',
     'water+earth': 'mud',
-    'air+fire': 'energy',
     'air+water': 'rain',
+    'fire+water': 'steam',
     'earth+water': 'plant',
     'air+earth': 'dust',
-    // Add more combinations as needed
+    'fire+air': 'energy',
+    // Add more combinations here as needed
 };
 
 function combineElements() {
@@ -34,11 +34,6 @@ function combineElements() {
     } else {
         document.getElementById('combination-result').textContent = `Cannot combine ${element1} + ${element2}.`;
     }
-}
-
-function getHint() {
-    let randomElement = discoveredElements[Math.floor(Math.random() * discoveredElements.length)];
-    document.getElementById('hint-text').textContent = `Hint: ${randomElement} can combine with ...`;
 }
 
 function updateElementsList() {
