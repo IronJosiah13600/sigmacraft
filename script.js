@@ -1884,3 +1884,33 @@ let combineButton = document.getElementById("combine-btn");
 combineButton.addEventListener("click", function() {
     combineSelectedElements(); // Combine selected elements
 });
+
+// Function to combine elements
+function combineElements() {
+    if (selectedElements.length === 2) {
+        const element1 = selectedElements[0];
+        const element2 = selectedElements[1];
+        const newElement = combinations[element1][element2];
+
+        if (newElement) {
+            // Show message for new element created
+            alert(`New element created: ${newElement}`);
+
+            // Add the new element to discovered elements
+            discoveredElements.push(newElement);
+
+            // Clear selected elements
+            selectedElements = [];
+
+            // Update UI to clear selected elements display
+            updateSelectedElementsUI();
+        }
+    }
+}
+
+// Function to update the UI for selected elements
+function updateSelectedElementsUI() {
+    // Assuming you have a function or logic to clear the selected elements display
+    // For example, if selectedElementsContainer is the container for selected elements:
+    selectedElementsContainer.innerHTML = '';
+}
