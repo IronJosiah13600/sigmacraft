@@ -1,18 +1,56 @@
 let discoveredElements = ['earth', 'air', 'fire', 'water']; // Starting elements
 
-// Define all 50 unique elements
-const elements = [
-    'water', 'fire', 'earth', 'air', 'steam',
-    'lava', 'dust', 'stone', 'metal', 'cloud',
-    'rain', 'plant', 'tree', 'grass', 'flower',
-    'seeds', 'life', 'energy', 'sun', 'moon',
-    'star', 'space', 'time', 'ocean', 'sea',
-    'salt', 'sand', 'glass', 'wood', 'house',
-    'castle', 'city', 'volcano', 'explosion', 'brick',
-    'cement', 'clay', 'pottery', 'computer', 'robot',
-    'human', 'wizard', 'vampire', 'werewolf', 'zombie',
-    'life', 'death', 'philosopher\'s stone'
-];
+// Define all elements with their possible combinations
+const elements = {
+    'water': ['water', 'earth', 'air', 'fire'],
+    'fire': ['fire', 'earth', 'water', 'air'],
+    'earth': ['earth', 'water', 'air', 'fire'],
+    'air': ['air', 'fire', 'water', 'earth'],
+    'steam': ['water', 'fire'],
+    'lava': ['fire', 'earth'],
+    'dust': ['earth', 'air'],
+    'stone': ['earth', 'fire'],
+    'metal': ['fire', 'stone'],
+    'cloud': ['air', 'steam'],
+    'rain': ['cloud', 'water'],
+    'plant': ['earth', 'rain'],
+    'tree': ['plant', 'plant'],
+    'grass': ['plant', 'earth'],
+    'flower': ['plant', 'grass'],
+    'seeds': ['plant', 'earth'],
+    'life': ['seeds', 'water'],
+    'energy': ['life', 'life'],
+    'sun': ['fire', 'sky'],
+    'moon': ['night', 'sky'],
+    'star': ['sun', 'moon'],
+    'space': ['star', 'star'],
+    'time': ['night', 'day'],
+    'ocean': ['water', 'sea'],
+    'sea': ['water', 'salt'],
+    'salt': ['sun', 'sea'],
+    'sand': ['stone', 'sea'],
+    'glass': ['sand', 'fire'],
+    'wood': ['tree', 'tool'],
+    'house': ['wood', 'brick'],
+    'castle': ['knight', 'house'],
+    'city': ['skyscraper', 'skyscraper'],
+    'volcano': ['lava', 'earth'],
+    'explosion': ['gunpowder', 'fire'],
+    'brick': ['fire', 'clay'],
+    'cement': ['clay', 'limestone'],
+    'clay': ['mud', 'sand'],
+    'pottery': ['fire', 'clay'],
+    'computer': ['electricity', 'tool'],
+    'robot': ['metal', 'computer'],
+    'human': ['earth', 'life'],
+    'wizard': ['human', 'magic'],
+    'vampire': ['human', 'blood'],
+    'werewolf': ['human', 'wolf'],
+    'zombie': ['human', 'corpse'],
+    'life': ['energy', 'small'],
+    'death': ['life', 'life'],
+    'philosopher\'s stone': ['alchemist', 'stone'],
+};
 
 function combineElements() {
     let element1 = document.getElementById('element1').value.toLowerCase();
@@ -52,21 +90,15 @@ function updateElementsList() {
 }
 
 function combine(element1, element2) {
-    // Define combinations here
-    if ((element1 === 'water' && element2 === 'fire') || (element1 === 'fire' && element2 === 'water')) {
-        return 'steam';
-    } else if ((element1 === 'earth' && element2 === 'fire') || (element1 === 'fire' && element2 === 'earth')) {
-        return 'lava';
-    } else if ((element1 === 'water' && element2 === 'air') || (element1 === 'air' && element2 === 'water')) {
-        return 'rain';
-    } else if ((element1 === 'plant' && element2 === 'earth') || (element1 === 'earth' && element2 === 'plant')) {
-        return 'seeds';
-    } else if ((element1 === 'sun' && element2 === 'moon') || (element1 === 'moon' && element2 === 'sun')) {
-        return 'star';
+    // Find possible combination
+    for (let key in elements) {
+        if (elements[key].includes(element1) && elements[key].includes(element2)) {
+            return key;
+        }
     }
-    // Add more combinations as needed for all 50 elements
-    return null; // Return null if no combination
+    return null; // Return null if no combination found
 }
 
 // Initialize the game with starting elements
 updateElementsList();
+// a
