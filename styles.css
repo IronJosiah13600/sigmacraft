@@ -1,26 +1,40 @@
-/* Example CSS styles for the discovered menu and buttons */
-#discovered-menu {
+/* Example CSS styles for the selected menu and buttons */
+#selected-elements {
     background-color: #f0f0f0;
     padding: 10px;
     border: 1px solid #ccc;
     margin-bottom: 20px;
 }
 
-#discovered-menu h2 {
+#selected-elements h2 {
     font-size: 1.2em;
     margin-bottom: 5px;
 }
 
-#discovered-list {
+#selected-list {
     list-style-type: none;
     padding: 0;
 }
 
-#discovered-list li {
+#selected-list li {
     display: inline-block;
     margin-right: 10px;
     padding: 5px 10px;
     background-color: #e0e0e0;
     border-radius: 5px;
+}
+
+#combine-btn {
+    margin-top: 10px;
+    padding: 8px 20px;
+    font-size: 1em;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
+}
+
+#combine-btn:hover {
+    background-color: #45a049;
 }

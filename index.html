@@ -22,11 +22,20 @@
 
     <div id="element-menu">
         <!-- Menu to select elements -->
-        <button id="air">Air</button>
-        <button id="fire">Fire</button>
-        <button id="water">Water</button>
-        <button id="earth">Earth</button>
+        <button class="element" data-element="air">Air</button>
+        <button class="element" data-element="fire">Fire</button>
+        <button class="element" data-element="water">Water</button>
+        <button class="element" data-element="earth">Earth</button>
         <!-- Add more buttons for other elements -->
+    </div>
+
+    <div id="selected-elements">
+        <!-- Selected elements display -->
+        <h2>Selected Elements:</h2>
+        <ul id="selected-list">
+            <!-- Display selected elements dynamically -->
+        </ul>
+        <button id="combine-btn">Combine</button>
     </div>
 
     <div id="element-grid">
