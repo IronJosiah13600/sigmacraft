@@ -1,55 +1,14 @@
 let discoveredElements = ['earth', 'air', 'fire', 'water']; // Starting elements
 
-// Define all elements with their possible combinations
-const elements = {
-    'water': ['earth', 'rain', 'sea', 'steam'],
-    'fire': ['earth', 'lava', 'explosion', 'energy'],
-    'earth': ['water', 'lava', 'plant', 'dust'],
-    'air': ['fire', 'cloud', 'energy', 'dust'],
-    'steam': ['water', 'fire'],
-    'lava': ['fire', 'earth'],
-    'dust': ['earth', 'air'],
-    'stone': ['lava', 'water'],
-    'metal': ['fire', 'stone'],
-    'cloud': ['air', 'steam'],
-    'rain': ['cloud', 'water'],
-    'plant': ['earth', 'rain'],
-    'tree': ['plant', 'earth'],
-    'grass': ['plant', 'earth'],
-    'flower': ['plant', 'sun'],
-    'seeds': ['flower', 'grass'],
-    'life': ['seeds', 'energy'],
-    'energy': ['fire', 'air'],
-    'sun': ['sky', 'star'],
-    'moon': ['night', 'sky'],
-    'star': ['sun', 'moon'],
-    'space': ['star', 'star'],
-    'time': ['sun', 'moon'],
-    'ocean': ['water', 'sea'],
-    'sea': ['water', 'salt'],
-    'salt': ['sun', 'sea'],
-    'sand': ['stone', 'sea'],
-    'glass': ['sand', 'fire'],
-    'wood': ['tree', 'tool'],
-    'house': ['wood', 'brick'],
-    'castle': ['knight', 'house'],
-    'city': ['skyscraper', 'skyscraper'],
-    'volcano': ['lava', 'earth'],
-    'explosion': ['gunpowder', 'fire'],
-    'brick': ['fire', 'clay'],
-    'cement': ['clay', 'limestone'],
-    'clay': ['mud', 'sand'],
-    'pottery': ['fire', 'clay'],
-    'computer': ['electricity', 'tool'],
-    'robot': ['metal', 'computer'],
-    'human': ['earth', 'life'],
-    'wizard': ['human', 'magic'],
-    'vampire': ['human', 'blood'],
-    'werewolf': ['human', 'wolf'],
-    'zombie': ['human', 'corpse'],
-    'life': ['energy', 'small'],
-    'death': ['life', 'life'],
-    'philosopher\'s stone': ['alchemist', 'stone'],
+const combinations = {
+    'water+fire': 'steam',
+    'earth+fire': 'lava',
+    'water+earth': 'mud',
+    'air+fire': 'energy',
+    'air+water': 'rain',
+    'earth+water': 'plant',
+    'air+earth': 'dust',
+    // Add more combinations as needed
 };
 
 function combineElements() {
@@ -61,7 +20,10 @@ function combineElements() {
         return;
     }
     
-    let newElement = combine(element1, element2);
+    let combinationKey = `${element1}+${element2}`;
+    let reversedCombinationKey = `${element2}+${element1}`;
+    
+    let newElement = combinations[combinationKey] || combinations[reversedCombinationKey];
     
     if (newElement && !discoveredElements.includes(newElement)) {
         discoveredElements.push(newElement);
@@ -87,17 +49,6 @@ function updateElementsList() {
         li.textContent = element;
         list.appendChild(li);
     });
-}
-
-function combine(element1, element2) {
-    // Find possible combination
-    for (let key in elements) {
-        if (key !== element1 && key !== element2) continue; // Skip elements not involved in the combination check
-        if (elements[key].includes(element1) && elements[key].includes(element2)) {
-            return key;
-        }
-    }
-    return null; // Return null if no combination found
 }
 
 // Initialize the game with starting elements
