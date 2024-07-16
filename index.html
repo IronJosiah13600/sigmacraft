@@ -1,119 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sigma Craft</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flappy Bird</title>
+<style>
+    canvas {
+        border: 1px solid #000;
+        display: block;
+        margin: 0 auto;
+    }
+</style>
 </head>
 <body>
-    <h1>Sigma Craft</h1>
-    <div id="elements">
-        <!-- Elements will be displayed here -->
-    </div>
-    <div id="combinations">
-        <h2>Combine Elements</h2>
-        <div id="selected-elements">
-            <!-- Selected elements will be displayed here -->
-        </div>
-        <button id="combine-button">Combine</button>
-        <div id="result">
-            <!-- Result of combination will be displayed here -->
-        </div>
-    </div>
-    <script src="script.js"></script>
+    <canvas id="gameCanvas" width="400" height="500"></canvas>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var elementsContainer = document.getElementById('elements');
-            var selectedElementsContainer = document.getElementById('selected-elements');
-            var resultContainer = document.getElementById('result');
-            
-            // Elements and combinations
-            var elements = [
-                { name: 'Air', combinations: ['Pressure', 'Dust'] },
-                { name: 'Earth', combinations: ['Pressure', 'Lava'] },
-                { name: 'Fire', combinations: ['Energy', 'Tool'] },
-                { name: 'Water', combinations: ['Energy', 'Seed'] },
-                { name: 'Dust', combinations: ['Earth', 'Air'] },
-                { name: 'Lava', combinations: ['Earth', 'Fire'] },
-                { name: 'Pressure', combinations: ['Earth', 'Air'] },
-                { name: 'Steam', combinations: ['Water', 'Fire'] },
-                { name: 'Energy', combinations: ['Air', 'Fire'] },
-                { name: 'Metal', combinations: ['Fire', 'Stone'] },
-                { name: 'Time', combinations: ['Tool', 'Life'] },
-                { name: 'Tool', combinations: ['Metal', 'Wood'] },
-                { name: 'Wood', combinations: ['Tool', 'Life'] },
-                { name: 'Life', combinations: ['Energy', 'Seed'] },
-                { name: 'Egg', combinations: ['Life', 'Stone'] },
-                { name: 'Seed', combinations: ['Water', 'Life'] },
-                { name: 'Mud', combinations: ['Water', 'Earth'] },
-                { name: 'Stone', combinations: ['Water', 'Lava'] },
-                { name: 'Sand', combinations: ['Stone', 'Air'] },
-                { name: 'Clay', combinations: ['Mud', 'Sand'] }
-            ];
-            
-            // Add elements to the #elements div
-            elements.forEach(function(element) {
-                var elementDiv = document.createElement('div');
-                elementDiv.textContent = element.name;
-                elementDiv.classList.add('element');
-                elementDiv.setAttribute('data-element', element.name);
-                elementsContainer.appendChild(elementDiv);
-            });
-            
-            var selectedElements = [];
-            
-            // Select element event listener
-            elementsContainer.addEventListener('click', function(event) {
-                var clickedElement = event.target;
-                if (clickedElement.classList.contains('element')) {
-                    var elementName = clickedElement.getAttribute('data-element');
-                    if (!selectedElements.includes(elementName)) {
-                        selectedElements.push(elementName);
-                        var selectedElementDiv = document.createElement('div');
-                        selectedElementDiv.textContent = elementName;
-                        selectedElementsContainer.appendChild(selectedElementDiv);
-                    }
+        // Initialize canvas and context
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Bird object
+        let bird = {
+            x: 50,
+            y: 150,
+            width: 20,
+            height: 20,
+            gravity: 0.6,
+            lift: -15,
+            velocity: 0,
+            jump: function() {
+                this.velocity = this.lift;
+            },
+            update: function() {
+                this.velocity += this.gravity;
+                this.y += this.velocity;
+
+                // Prevent bird from going off-screen
+                if (this.y >= canvas.height - this.height) {
+                    this.y = canvas.height - this.height;
+                    this.velocity = 0;
                 }
-            });
-            
-            // Combine button logic
-            var combineButton = document.getElementById('combine-button');
-            combineButton.addEventListener('click', function() {
-                if (selectedElements.length < 2) {
-                    alert('Select at least 2 elements to combine.');
-                    return;
+                if (this.y <= 0) {
+                    this.y = 0;
+                    this.velocity = 0;
                 }
-                var combinedElement = combineElements(selectedElements);
-                if (combinedElement) {
-                    resultContainer.textContent = 'Combined element: ' + combinedElement;
-                } else {
-                    resultContainer.textContent = 'No combination found for selected elements.';
-                }
-            });
-            
-            // Function to combine selected elements
-            function combineElements(selectedElements) {
-                for (var i = 0; i < elements.length; i++) {
-                    var element = elements[i];
-                    if (arraysEqual(selectedElements, element.combinations.sort())) {
-                        return element.name;
-                    }
-                }
-                return null;
+            },
+            draw: function() {
+                ctx.fillStyle = '#FF5733';
+                ctx.fillRect(this.x, this.y, this.width, this.height);
             }
+        };
+
+        // Game loop
+        function gameLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // Function to check if two arrays are equal (order insensitive)
-            function arraysEqual(arr1, arr2) {
-                if (arr1.length !== arr2.length) return false;
-                var sortedArr1 = arr1.sort();
-                var sortedArr2 = arr2.sort();
-                for (var i = 0; i < sortedArr1.length; i++) {
-                    if (sortedArr1[i] !== sortedArr2[i]) return false;
-                }
-                return true;
+            bird.update();
+            bird.draw();
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Event listeners
+        document.addEventListener('keydown', function(event) {
+            if (event.keyCode === 32) { // Spacebar key
+                bird.jump();
             }
         });
+
+        // Start the game loop
+        gameLoop();
     </script>
 </body>
 </html>
