@@ -3,35 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sigma Craft by Sigma Games 21</title>
-    <style>
-        /* Add your styles here */
-        #elements-menu, #selected-elements, #combine-section {
-            margin: 20px;
-        }
-        .element {
-            margin: 5px;
-            padding: 10px;
-            background-color: lightblue;
-            border: none;
-            cursor: pointer;
-        }
-        #combine-btn {
-            margin: 20px;
-            padding: 10px 20px;
-            background-color: lightgreen;
-            border: none;
-            cursor: pointer;
-        }
-        #new-element-message {
-            margin: 20px;
-            padding: 10px;
-            background-color: lightyellow;
-            border: 1px solid black;
-            display: none;
-        }
-    </style>
+    <title>Sigma Craft</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Sigma Craft by Sigma Games 21</h1>
-    <div
+    <div class="container">
+        <h1>Sigma Craft by Sigma Games 21</h1>
+        <div class="elements-section">
+            <h2>Elements</h2>
+            <div id="elements-menu" class="elements-menu"></div>
+        </div>
+        <div class="selected-elements-section">
+            <h2>Selected Elements</h2>
+            <ul id="selected-list" class="selected-list"></ul>
+            <button id="combine-btn">Combine</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
