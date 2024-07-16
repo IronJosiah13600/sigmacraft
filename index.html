@@ -4,135 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sigma Craft</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
-
-        h1 {
-            margin-top: 20px;
-        }
-
-        #elements, #combinations {
-            margin: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            background-color: #fff;
-            width: 80%;
-            max-width: 600px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .element {
-            margin: 5px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            background-color: #e0e0e0;
-            cursor: pointer;
-            width: 100px;
-            text-align: center;
-        }
-
-        #selected-elements {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 10px;
-        }
-
-        .selected {
-            border: 2px solid #000;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Sigma Craft</h1>
-    <div id="elements">
-        <!-- Elements will be displayed here -->
-    </div>
-    <div id="combinations">
-        <h2>Combine Elements</h2>
-        <div id="selected-elements">
-            <!-- Selected elements will be displayed here -->
+    
+    <div id="game">
+        <div id="elements">
+            <h2>Elements</h2>
+            <ul id="element-list">
+                <!-- Elements will be dynamically added here -->
+            </ul>
         </div>
-        <button id="combine-button">Combine</button>
+
+        <div id="combinations">
+            <h2>Combinations</h2>
+            <ul id="combination-list">
+                <!-- Combinations will be dynamically added here -->
+            </ul>
+        </div>
+
+        <div id="player">
+            <h2>Player's Selections</h2>
+            <ul id="player-list">
+                <!-- Player's selections will be dynamically added here -->
+            </ul>
+        </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const elementsContainer = document.getElementById('elements');
-            const selectedElementsContainer = document.getElementById('selected-elements');
-            const combineButton = document.getElementById('combine-button');
 
-            // Initial elements
-            let elements = ['fire', 'water', 'earth', 'air'];
-
-            let combinations = {};
-
-            // Fetch combinations from JSON file
-            fetch('combinations.json')
-                .then(response => response.json())
-                .then(data => {
-                    combinations = data;
-                    renderElements();
-                });
-
-            let selectedElements = [];
-
-            function renderElements() {
-                elementsContainer.innerHTML = '';
-                elements.forEach(element => {
-                    const div = document.createElement('div');
-                    div.classList.add('element');
-                    div.textContent = element;
-                    div.addEventListener('click', () => selectElement(element));
-                    elementsContainer.appendChild(div);
-                });
-            }
-
-            function renderSelectedElements() {
-                selectedElementsContainer.innerHTML = '';
-                selectedElements.forEach(element => {
-                    const div = document.createElement('div');
-                    div.classList.add('element', 'selected');
-                    div.textContent = element;
-                    selectedElementsContainer.appendChild(div);
-                });
-            }
-
-            function selectElement(element) {
-                if (selectedElements.length < 2) {
-                    selectedElements.push(element);
-                    renderSelectedElements();
-                }
-            }
-
-            function combineElements() {
-                if (selectedElements.length === 2) {
-                    const combinationKey = selectedElements.sort().join('');
-                    const result = combinations[combinationKey];
-
-                    if (result && !elements.includes(result)) {
-                        elements.push(result);
-                        alert(`You created: ${result}`);
-                        renderElements();
-                    } else {
-                        alert('Combination does not exist or already discovered.');
-                    }
-
-                    selectedElements = [];
-                    renderSelectedElements();
-                }
-            }
-
-            combineButton.addEventListener('click', combineElements);
-        });
-    </script>
+    <script src="game.js"></script>
 </body>
 </html>
