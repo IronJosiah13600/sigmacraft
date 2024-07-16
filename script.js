@@ -1,7 +1,4 @@
-// Define initial discovered elements (starting with earth, air, fire, water)
 let discoveredElements = ["earth", "air", "fire", "water"];
-
-// Define all elements and their combinations
 let elements = {
     "earth": {
         combinations: {
@@ -26,7 +23,6 @@ let elements = {
             "fire": "steam"
         }
     },
-    // Additional elements and combinations
     "dust": {
         combinations: {
             "fire": "ash"
@@ -178,36 +174,32 @@ let elements = {
             "fire": "skyscraper"
         }
     },
-    // ... (all 25 elements and their combinations)
+    // Additional combinations can be added here
 };
 
-let selectedElements = []; // Array to store selected elements
+let selectedElements = [];
 
-// Function to update the UI with selected elements
 function updateSelectedElements() {
     let selectedList = document.getElementById("selected-list");
-    selectedList.innerHTML = ""; // Clear existing list
+    selectedList.innerHTML = "";
 
     selectedElements.forEach(element => {
         let li = document.createElement("li");
         li.textContent = element;
-        li.id = `selected-${element}`; // Set element ID
+        li.id = `selected-${element}`;
         selectedList.appendChild(li);
     });
 }
 
-// Function to add a new element to selected list
 function addToSelected(element) {
     if (selectedElements.length < 2 && !selectedElements.includes(element)) {
         selectedElements.push(element);
         updateSelectedElements();
     } else {
         console.log("You can only select up to two elements.");
-        // Display a message or alert to inform the user
     }
 }
 
-// Function to combine selected elements and discover new ones
 function combineSelectedElements() {
     if (selectedElements.length === 2) {
         let element1 = selectedElements[0];
@@ -215,100 +207,59 @@ function combineSelectedElements() {
 
         if (elements[element1] && elements[element1].combinations && elements[element1].combinations[element2]) {
             let newElement = elements[element1].combinations[element2];
-            addToDiscovered(newElement); // Add newly discovered element to discovered list
+            addToDiscovered(newElement);
+        } else if (elements[element2] && elements[element2].combinations && elements[element2].combinations[element1]) {
+            let newElement = elements[element2].combinations[element1];
+            addToDiscovered(newElement);
         } else {
             console.log(`No combination found for ${element1} and ${element2}`);
-            // Check combinations with discovered elements
-            let discoveredCombination = checkDiscoveredCombinations(selectedElements);
-            if (discoveredCombination) {
-                addToDiscovered(discoveredCombination); // Add discovered combination to discovered list
-            } else {
-                console.log("No valid combination found.");
-                // Display a message or handle the case where no combination exists
-            }
         }
 
-        // Clear selected elements after combining
         selectedElements = [];
         updateSelectedElements();
-        updateElementsMenu(); // Update elements menu to include discovered elements
     } else {
         console.log("Select exactly two elements to combine.");
-        // Display a message or alert to select exactly two elements
     }
 }
 
-// Function to check combinations with discovered elements
-function checkDiscoveredCombinations(selectedElements) {
-    for (let element of discoveredElements) {
-        if (elements[element] && elements[element].combinations) {
-            for (let key in elements[element].combinations) {
-                if (selectedElements.includes(key)) {
-                    return elements[element].combinations[key];
-                }
-            }
-        }
-    }
-    return null;
-}
-
-// Function to add a newly discovered element to the discovered list
 function addToDiscovered(element) {
     if (!discoveredElements.includes(element)) {
         discoveredElements.push(element);
-        updateElementsMenu(); // Update elements menu with newly discovered elements
-        showNewElementMessage(element); // Show new element message
+        updateElementsMenu();
+        alert(`New element created: ${element}`);
     }
 }
 
-// Function to update the elements menu with all elements (discovered and undiscovered)
 function updateElementsMenu() {
     let elementsMenu = document.getElementById("elements-menu");
-    elementsMenu.innerHTML = ""; // Clear existing menu
+    elementsMenu.innerHTML = "";
 
-    // Add all elements, including discovered ones
-    for (let element in elements) {
+    discoveredElements.forEach(element => {
         let button = document.createElement("button");
         button.textContent = element;
         button.classList.add("element");
         button.setAttribute("data-element", element);
-        if (discoveredElements.includes(element)) {
-            elementsMenu.appendChild(button); // Add button only if discovered
-        }
-    }
+        elementsMenu.appendChild(button);
+    });
 
-    // Add event listeners to newly added buttons
     addElementButtonListeners();
 }
 
-// Function to add event listeners to element buttons
 function addElementButtonListeners() {
     let elementButtons = document.querySelectorAll(".element");
     elementButtons.forEach(button => {
         button.addEventListener("click", function() {
             let element = button.getAttribute("data-element");
-            addToSelected(element); // Add element to selected list
+            addToSelected(element);
         });
     });
 }
 
-// Function to show a new element created message
-function showNewElementMessage(element) {
-    let message = document.getElementById("new-element-message");
-    message.textContent = `New element created: ${element}`;
-    message.style.display = "block";
-    setTimeout(() => {
-        message.style.display = "none";
-    }, 3000); // Hide the message after 3 seconds
-}
-
-// Add event listeners for initial element buttons
 document.addEventListener("DOMContentLoaded", function() {
-    updateElementsMenu(); // Initial update of elements menu
+    updateElementsMenu();
 });
 
-// Add event listener for combine button
 let combineButton = document.getElementById("combine-btn");
 combineButton.addEventListener("click", function() {
-    combineSelectedElements(); // Combine selected elements
+    combineSelectedElements();
 });
