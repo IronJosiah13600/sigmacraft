@@ -118,11 +118,13 @@ function updateDiscoveredList() {
 }
 
 // Add event listeners for element buttons
-let elementButtons = document.querySelectorAll(".element");
-elementButtons.forEach(button => {
-    button.addEventListener("click", function() {
-        let element = button.getAttribute("data-element");
-        addToSelected(element); // Add element to selected list
+document.addEventListener("DOMContentLoaded", function() {
+    let elementButtons = document.querySelectorAll(".element");
+    elementButtons.forEach(button => {
+        button.addEventListener("click", function() {
+            let element = button.getAttribute("data-element");
+            addToSelected(element); // Add element to selected list
+        });
     });
 });
 
