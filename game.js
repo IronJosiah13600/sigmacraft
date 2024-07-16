@@ -1,4 +1,4 @@
-let discoveredElements = [];
+let discoveredElements = ['earth', 'air', 'fire', 'water']; // Starting elements
 
 // Define all 50 unique elements
 const elements = [
@@ -62,3 +62,6 @@ function combine(element1, element2) {
     // Add more combinations as needed for all 50 elements
     return null; // Return null if no combination
 }
+
+// Initialize the game with starting elements
+updateElementsList();
