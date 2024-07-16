@@ -123,6 +123,7 @@ function updateElementsMenu() {
     let elementsMenu = document.getElementById("elements-menu");
     elementsMenu.innerHTML = ""; // Clear existing menu
 
+    // Add all elements, including discovered ones
     for (let element in elements) {
         let button = document.createElement("button");
         button.textContent = element;
@@ -150,7 +151,7 @@ function addElementButtonListeners() {
 
 // Add event listeners for initial element buttons
 document.addEventListener("DOMContentLoaded", function() {
-    addElementButtonListeners();
+    updateElementsMenu(); // Initial update of elements menu
 });
 
 // Add event listener for combine button
