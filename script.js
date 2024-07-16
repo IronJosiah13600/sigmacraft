@@ -124,29 +124,9 @@ document.addEventListener("DOMContentLoaded", function() {
         button.addEventListener("click", function() {
             let element = button.getAttribute("data-element");
             addToSelected(element); // Add element to selected list
-            moveButtonToSelected(button); // Move button to selected tab
         });
     });
 });
-
-// Function to move button to selected tab
-function moveButtonToSelected(button) {
-    let selectedList = document.getElementById("selected-list");
-    let clonedButton = button.cloneNode(true); // Clone button
-    clonedButton.addEventListener("click", function() {
-        removeFromSelected(clonedButton.getAttribute("data-element")); // Remove from selected when clicked again
-    });
-    selectedList.appendChild(clonedButton); // Append cloned button to selected tab
-}
-
-// Function to remove element from selected list
-function removeFromSelected(element) {
-    let index = selectedElements.indexOf(element);
-    if (index !== -1) {
-        selectedElements.splice(index, 1);
-        updateSelectedElements(); // Update UI
-    }
-}
 
 // Add event listener for combine button
 let combineButton = document.getElementById("combine-btn");
