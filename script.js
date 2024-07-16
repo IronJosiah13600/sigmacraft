@@ -77,6 +77,7 @@ function combineSelectedElements() {
         // Clear selected elements after combining
         selectedElements = [];
         updateSelectedElements();
+        updateElementsMenu(); // Update elements menu to include discovered elements
     } else {
         console.log("Select at least two elements to combine.");
         // Display a message or alert to select at least two elements
@@ -117,8 +118,27 @@ function updateDiscoveredList() {
     });
 }
 
-// Add event listeners for element buttons
-document.addEventListener("DOMContentLoaded", function() {
+// Function to update the elements menu with discovered elements
+function updateElementsMenu() {
+    let elementsMenu = document.getElementById("elements-menu");
+    elementsMenu.innerHTML = ""; // Clear existing menu
+
+    for (let element in elements) {
+        let button = document.createElement("button");
+        button.textContent = element;
+        button.classList.add("element");
+        button.setAttribute("data-element", element);
+        if (discoveredElements.includes(element)) {
+            elementsMenu.appendChild(button); // Add button only if element is discovered
+        }
+    }
+
+    // Add event listeners to newly added buttons
+    addElementButtonListeners();
+}
+
+// Function to add event listeners to element buttons
+function addElementButtonListeners() {
     let elementButtons = document.querySelectorAll(".element");
     elementButtons.forEach(button => {
         button.addEventListener("click", function() {
@@ -126,6 +146,11 @@ document.addEventListener("DOMContentLoaded", function() {
             addToSelected(element); // Add element to selected list
         });
     });
+}
+
+// Add event listeners for initial element buttons
+document.addEventListener("DOMContentLoaded", function() {
+    addElementButtonListeners();
 });
 
 // Add event listener for combine button
