@@ -105,22 +105,8 @@ function checkDiscoveredCombinations(selectedElements) {
 function addToDiscovered(element) {
     if (!discoveredElements.includes(element)) {
         discoveredElements.push(element);
-        updateDiscoveredList(); // Update UI with newly discovered element
+        updateElementsMenu(); // Update elements menu with newly discovered elements
     }
-}
-
-// Function to update the UI with discovered elements
-function updateDiscoveredList() {
-    let discoveredList = document.getElementById("discovered-list");
-    discoveredList.innerHTML = ""; // Clear existing list
-
-    discoveredElements.forEach(element => {
-        let li = document.createElement("li");
-        li.textContent = element;
-        discoveredList.appendChild(li);
-    });
-
-    updateElementsMenu(); // Update elements menu with newly discovered elements
 }
 
 // Function to update the elements menu with all elements (discovered and undiscovered)
@@ -163,21 +149,9 @@ function addElementButtonListeners() {
     });
 }
 
-// Function to add event listeners to discovered elements for combining
-function addDiscoveredElementListeners() {
-    let discoveredList = document.getElementById("discovered-list");
-    discoveredList.addEventListener("click", function(event) {
-        if (event.target.tagName === "LI") {
-            let element = event.target.textContent;
-            addToSelected(element); // Add discovered element to selected list
-        }
-    });
-}
-
-// Add event listeners for initial element buttons and discovered elements
+// Add event listeners for initial element buttons
 document.addEventListener("DOMContentLoaded", function() {
     updateElementsMenu(); // Initial update of elements menu
-    addDiscoveredElementListeners(); // Add listeners to discovered elements
 });
 
 // Add event listener for combine button

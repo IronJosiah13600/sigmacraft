@@ -1,61 +1,74 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.game-title {
-    font-size: 24px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.discovered-container, .elements-container, .selected-container {
-    width: 30%;
-    margin-bottom: 20px;
+body {
+    font-family: Arial, sans-serif;
     background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 
-.discovered-container h2, .elements-container h2, .selected-container h2 {
-    background-color: #4CAF50;
-    color: white;
-    padding: 8px;
-    margin-top: 0;
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 800px;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #333;
+}
+
+.elements-section, .selected-elements-section {
+    margin-bottom: 20px;
+}
+
+.elements-menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .element {
-    display: block;
-    margin-bottom: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
-.selected-container {
-    position: relative; /* Make the container relative for absolute positioning */
+.element:hover {
+    background-color: #45a049;
 }
 
-.selected-container ul {
+.selected-list {
     list-style-type: none;
     padding: 0;
 }
 
-.selected-container li {
+.selected-list li {
     margin-bottom: 5px;
 }
 
-button#combine-btn {
-    position: absolute;
-    bottom: -30px; /* Adjust as needed for spacing */
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #4CAF50;
+#combine-btn {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #008CBA;
     color: white;
     border: none;
-    padding: 10px 20px;
     cursor: pointer;
+    border-radius: 5px;
 }
 
-button#combine-btn:hover {
-    background-color: #45a049;
+#combine-btn:hover {
+    background-color: #005f6b;
 }
