@@ -70,8 +70,19 @@
             const selectedElementsContainer = document.getElementById('selected-elements');
             const combineButton = document.getElementById('combine-button');
 
+            // Initial elements
             const elements = ['fire', 'water', 'earth', 'air'];
 
+            // All elements that can be discovered through combinations
+            const allElements = new Set([
+                'steam', 'lava', 'rain', 'mud', 'energy', 'dust', 'stone',
+                'metal', 'electricity', 'life', 'plant', 'animal', 'tree',
+                'human', 'sand', 'glass', 'time', 'solar panel', 'telescope',
+                'wind', 'mountain', 'day', 'night', 'rock', 'wood', 'coal',
+                'solar system', 'moon system', 'planet', 'universe', 'galaxy', 'star'
+            ]);
+
+            // Combinations and resulting elements
             const combinations = {
                 'firewater': 'steam',
                 'fireearth': 'lava',
@@ -102,9 +113,11 @@
                 'timeanimal': 'human',
                 'galaxysun': 'solar system',
                 'galaxymoon': 'moon system',
-                'galaxyearth': 'planet',
-                'galaxyplanet': 'universe'
-                'waterwater' : 'puddle'
+                'earthearth': 'planet',
+                'galaxyplanet': 'universe',
+                'timegalaxy': 'universe',
+                'planetsun': 'star',
+                'planetstar': 'galaxy'
             };
 
             let selectedElements = [];
