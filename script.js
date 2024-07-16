@@ -154,9 +154,21 @@ function addElementButtonListeners() {
     });
 }
 
-// Add event listeners for initial element buttons
+// Function to add event listeners to discovered elements for combining
+function addDiscoveredElementListeners() {
+    let discoveredList = document.getElementById("discovered-list");
+    discoveredList.addEventListener("click", function(event) {
+        if (event.target.tagName === "LI") {
+            let element = event.target.textContent;
+            addToSelected(element); // Add discovered element to selected list
+        }
+    });
+}
+
+// Add event listeners for initial element buttons and discovered elements
 document.addEventListener("DOMContentLoaded", function() {
     updateElementsMenu(); // Initial update of elements menu
+    addDiscoveredElementListeners(); // Add listeners to discovered elements
 });
 
 // Add event listener for combine button
