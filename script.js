@@ -159,3 +159,11 @@ let combineButton = document.getElementById("combine-btn");
 combineButton.addEventListener("click", function() {
     combineSelectedElements(); // Combine selected elements
 });
+
+// Ensure event listeners are added to dynamically added buttons
+document.addEventListener("click", function(event) {
+    if (event.target.classList.contains("element")) {
+        let element = event.target.getAttribute("data-element");
+        addToSelected(element); // Add element to selected list
+    }
+});
