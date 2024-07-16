@@ -1,5 +1,5 @@
-// Define initial discovered elements
-let discoveredElements = ["air", "fire", "water", "earth"];
+// Define initial discovered elements (starting with earth, air, fire, water)
+let discoveredElements = ["earth", "air", "fire", "water"];
 
 // Define all elements and their combinations
 let elements = {
@@ -271,19 +271,10 @@ function updateElementsMenu() {
         button.textContent = element;
         button.classList.add("element");
         button.setAttribute("data-element", element);
-        elementsMenu.appendChild(button); // Always add button for defined elements
-    }
-
-    // Add buttons for discovered elements
-    discoveredElements.forEach(element => {
-        if (!elements[element]) {
-            let button = document.createElement("button");
-            button.textContent = element;
-            button.classList.add("element");
-            button.setAttribute("data-element", element);
-            elementsMenu.appendChild(button);
+        if (discoveredElements.includes(element)) {
+            elementsMenu.appendChild(button); // Add button only if discovered
         }
-    });
+    }
 
     // Add event listeners to newly added buttons
     addElementButtonListeners();
