@@ -2,29 +2,29 @@ let discoveredElements = ['earth', 'air', 'fire', 'water']; // Starting elements
 
 // Define all elements with their possible combinations
 const elements = {
-    'water': ['water', 'earth', 'air', 'fire'],
-    'fire': ['fire', 'earth', 'water', 'air'],
-    'earth': ['earth', 'water', 'air', 'fire'],
-    'air': ['air', 'fire', 'water', 'earth'],
+    'water': ['earth', 'rain', 'sea', 'steam'],
+    'fire': ['earth', 'lava', 'explosion', 'energy'],
+    'earth': ['water', 'lava', 'plant', 'dust'],
+    'air': ['fire', 'cloud', 'energy', 'dust'],
     'steam': ['water', 'fire'],
     'lava': ['fire', 'earth'],
     'dust': ['earth', 'air'],
-    'stone': ['earth', 'fire'],
+    'stone': ['lava', 'water'],
     'metal': ['fire', 'stone'],
     'cloud': ['air', 'steam'],
     'rain': ['cloud', 'water'],
     'plant': ['earth', 'rain'],
-    'tree': ['plant', 'plant'],
+    'tree': ['plant', 'earth'],
     'grass': ['plant', 'earth'],
-    'flower': ['plant', 'grass'],
-    'seeds': ['plant', 'earth'],
-    'life': ['seeds', 'water'],
-    'energy': ['life', 'life'],
-    'sun': ['fire', 'sky'],
+    'flower': ['plant', 'sun'],
+    'seeds': ['flower', 'grass'],
+    'life': ['seeds', 'energy'],
+    'energy': ['fire', 'air'],
+    'sun': ['sky', 'star'],
     'moon': ['night', 'sky'],
     'star': ['sun', 'moon'],
     'space': ['star', 'star'],
-    'time': ['night', 'day'],
+    'time': ['sun', 'moon'],
     'ocean': ['water', 'sea'],
     'sea': ['water', 'salt'],
     'salt': ['sun', 'sea'],
@@ -92,6 +92,7 @@ function updateElementsList() {
 function combine(element1, element2) {
     // Find possible combination
     for (let key in elements) {
+        if (key !== element1 && key !== element2) continue; // Skip elements not involved in the combination check
         if (elements[key].includes(element1) && elements[key].includes(element2)) {
             return key;
         }
@@ -101,4 +102,3 @@ function combine(element1, element2) {
 
 // Initialize the game with starting elements
 updateElementsList();
-// a
