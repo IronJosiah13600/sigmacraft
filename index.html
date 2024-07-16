@@ -3,28 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sigma Craft</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Sigma Craft Game</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Sigma Craft</h1>
-    <div>
-        <h2>Available Elements</h2>
-        <div id="available-elements" class="elements">
-            <!-- Starting elements will be added here -->
-        </div>
+    <h1>Sigma Craft: Discover Elements!</h1>
+
+    <div id="discovered-menu">
+        <h2>Discovered:</h2>
+        <ul id="discovered-list">
+            <!-- Initially display discovered elements -->
+            <li id="air">Air</li>
+            <li id="fire">Fire</li>
+            <li id="water">Water</li>
+            <li id="earth">Earth</li>
+        </ul>
     </div>
-    <div class="selected-elements">
-        <h2>Selected Elements</h2>
-        <div id="selected-elements"></div>
-        <button id="combine-button" onclick="combineElements()">Combine</button>
+
+    <div id="element-menu">
+        <!-- Menu to select elements -->
+        <button id="air">Air</button>
+        <button id="fire">Fire</button>
+        <button id="water">Water</button>
+        <button id="earth">Earth</button>
+        <!-- Add more buttons for other elements -->
     </div>
-    <div>
-        <h2>Discovered Elements</h2>
-        <div id="discovered-elements" class="elements">
-            <!-- Discovered elements will be added here -->
-        </div>
+
+    <div id="element-grid">
+        <!-- Display grid for combinations and discovered elements -->
     </div>
-    <script src="game.js"></script>
+
+    <script src="script.js"></script>
 </body>
 </html>
