@@ -1,103 +1,115 @@
-let discoveredElements = ['earth', 'air', 'fire', 'water']; // Starting elements
-
-// Define all elements with their possible combinations
-const elements = {
-    'water': ['water', 'earth', 'air', 'fire'],
-    'fire': ['fire', 'earth', 'water', 'air'],
-    'earth': ['earth', 'water', 'air', 'fire'],
-    'air': ['air', 'fire', 'water', 'earth'],
-    'steam': ['water', 'fire'],
-    'lava': ['fire', 'earth'],
-    'dust': ['earth', 'air'],
-    'stone': ['earth', 'fire'],
-    'metal': ['fire', 'stone'],
-    'cloud': ['air', 'steam'],
-    'rain': ['cloud', 'water'],
-    'plant': ['earth', 'rain'],
-    'tree': ['plant', 'plant'],
-    'grass': ['plant', 'earth'],
-    'flower': ['plant', 'grass'],
-    'seeds': ['plant', 'earth'],
-    'life': ['seeds', 'water'],
-    'energy': ['life', 'life'],
-    'sun': ['fire', 'sky'],
-    'moon': ['night', 'sky'],
-    'star': ['sun', 'moon'],
-    'space': ['star', 'star'],
-    'time': ['night', 'day'],
-    'ocean': ['water', 'sea'],
-    'sea': ['water', 'salt'],
-    'salt': ['sun', 'sea'],
-    'sand': ['stone', 'sea'],
-    'glass': ['sand', 'fire'],
-    'wood': ['tree', 'tool'],
-    'house': ['wood', 'brick'],
-    'castle': ['knight', 'house'],
-    'city': ['skyscraper', 'skyscraper'],
-    'volcano': ['lava', 'earth'],
-    'explosion': ['gunpowder', 'fire'],
-    'brick': ['fire', 'clay'],
-    'cement': ['clay', 'limestone'],
-    'clay': ['mud', 'sand'],
-    'pottery': ['fire', 'clay'],
-    'computer': ['electricity', 'tool'],
-    'robot': ['metal', 'computer'],
-    'human': ['earth', 'life'],
-    'wizard': ['human', 'magic'],
-    'vampire': ['human', 'blood'],
-    'werewolf': ['human', 'wolf'],
-    'zombie': ['human', 'corpse'],
-    'life': ['energy', 'small'],
-    'death': ['life', 'life'],
-    'philosopher\'s stone': ['alchemist', 'stone'],
+const startingElements = ['earth', 'air', 'fire', 'water'];
+const combinations = {
+    'earth+water': 'mud',
+    'fire+air': 'energy',
+    'earth+fire': 'lava',
+    'air+water': 'rain',
+    'water+fire': 'steam',
+    'earth+air': 'dust',
+    'mud+fire': 'brick',
+    'mud+air': 'clay',
+    'energy+earth': 'earthquake',
+    'energy+air': 'storm',
+    'energy+water': 'wave',
+    'energy+fire': 'explosion',
+    'lava+water': 'stone',
+    'lava+air': 'ash',
+    'lava+earth': 'volcano',
+    'rain+earth': 'plant',
+    'rain+fire': 'boil',
+    'rain+air': 'cloud',
+    'rain+water': 'flood',
+    'steam+earth': 'geyser',
+    'steam+air': 'mist',
+    'steam+fire': 'engine',
+    'dust+water': 'mud',
+    'dust+fire': 'smoke',
+    'dust+air': 'sand',
+    'brick+earth': 'house',
+    'brick+fire': 'glass',
+    'brick+water': 'cement',
+    'clay+fire': 'pottery',
+    'clay+water': 'swamp',
+    'clay+earth': 'mudbrick',
+    'earthquake+water': 'tsunami',
+    'earthquake+fire': 'eruption',
+    'earthquake+air': 'storm',
+    'storm+water': 'hurricane',
+    'storm+fire': 'thunderstorm',
+    'storm+earth': 'tornado',
+    'wave+earth': 'beach',
+    'wave+fire': 'steam',
+    'wave+air': 'tsunami',
+    'explosion+earth': 'crater',
+    'explosion+water': 'boil',
+    'explosion+air': 'firework',
+    'stone+water': 'sandstone',
+    'stone+air': 'dust',
+    'stone+fire': 'metal',
+    'ash+water': 'pumice',
+    'ash+earth': 'fertilizer',
+    'volcano+air': 'eruption',
+    'volcano+water': 'island',
+    'house+plant': 'garden',
+    'house+fire': 'chimney',
+    'plant+water': 'flower',
+    'plant+earth': 'tree',
+    'plant+air': 'pollen',
+    'flower+earth': 'garden',
+    'flower+water': 'bouquet',
+    'tree+fire': 'charcoal',
+    'tree+water': 'fruit',
+    'tree+earth': 'forest',
+    'forest+fire': 'wildfire',
+    'forest+water': 'swamp',
+    'forest+air': 'oxygen'
 };
 
-function combineElements() {
-    let element1 = document.getElementById('element1').value.toLowerCase();
-    let element2 = document.getElementById('element2').value.toLowerCase();
-    
-    if (!discoveredElements.includes(element1) || !discoveredElements.includes(element2)) {
-        document.getElementById('combination-result').textContent = "You can only combine discovered elements!";
-        return;
-    }
-    
-    let newElement = combine(element1, element2);
-    
-    if (newElement && !discoveredElements.includes(newElement)) {
-        discoveredElements.push(newElement);
-        updateElementsList();
-        document.getElementById('combination-result').textContent = `You created ${newElement}!`;
-    } else if (discoveredElements.includes(newElement)) {
-        document.getElementById('combination-result').textContent = `${newElement} already discovered!`;
-    } else {
-        document.getElementById('combination-result').textContent = `Cannot combine ${element1} + ${element2}.`;
-    }
-}
+const discoveredElements = new Set(startingElements);
 
-function getHint() {
-    let randomElement = discoveredElements[Math.floor(Math.random() * discoveredElements.length)];
-    document.getElementById('hint-text').textContent = `Hint: ${randomElement} can combine with ...`;
-}
-
-function updateElementsList() {
-    let list = document.getElementById('discovered-elements');
-    list.innerHTML = '';
-    discoveredElements.forEach(element => {
-        let li = document.createElement('li');
-        li.textContent = element;
-        list.appendChild(li);
+function init() {
+    const availableElementsDiv = document.getElementById('available-elements');
+    startingElements.forEach(element => {
+        availableElementsDiv.appendChild(createElementDiv(element));
     });
 }
 
-function combine(element1, element2) {
-    // Find possible combination
-    for (let key in elements) {
-        if (elements[key].includes(element1) && elements[key].includes(element2)) {
-            return key;
-        }
-    }
-    return null; // Return null if no combination found
+function createElementDiv(element) {
+    const div = document.createElement('div');
+    div.className = 'element';
+    div.textContent = element;
+    div.onclick = () => selectElement(element);
+    return div;
 }
 
-// Initialize the game with starting elements
-updateElementsList();
+function selectElement(element) {
+    const selectedElementsDiv = document.getElementById('selected-elements');
+    if (selectedElementsDiv.children.length < 2) {
+        const div = document.createElement('div');
+        div.className = 'element';
+        div.textContent = element;
+        selectedElementsDiv.appendChild(div);
+    }
+}
+
+function combineElements() {
+    const selectedElementsDiv = document.getElementById('selected-elements');
+    if (selectedElementsDiv.children.length === 2) {
+        const element1 = selectedElementsDiv.children[0].textContent;
+        const element2 = selectedElementsDiv.children[1].textContent;
+        const combinationKey = createCombinationKey(element1, element2);
+        const newElement = combinations[combinationKey];
+        if (newElement && !discoveredElements.has(newElement)) {
+            discoveredElements.add(newElement);
+            document.getElementById('discovered-elements').appendChild(createElementDiv(newElement));
+            document.getElementById('available-elements').appendChild(createElementDiv(newElement));
+        }
+        selectedElementsDiv.innerHTML = '';
+    }
+}
+
+function createCombinationKey(element1, element2) {
+    return [element1, element2].sort().join('+');
+}
+
+window.onload = init;

@@ -3,32 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sigma Craft - Little Alchemy 2 Clone</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Sigma Craft</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game-container">
-        <h1>Sigma Craft</h1>
-        <div class="elements-list">
-            <h2>Discovered Elements:</h2>
-            <ul id="discovered-elements">
-                <!-- Elements dynamically added here -->
-            </ul>
-        </div>
-        <div class="combination-input">
-            <h2>Combine Elements:</h2>
-            <input type="text" id="element1" placeholder="First Element">
-            <input type="text" id="element2" placeholder="Second Element">
-            <button onclick="combineElements()">Combine</button>
-        </div>
-        <div class="feedback">
-            <h2>Result:</h2>
-            <p id="combination-result">Combine elements to discover new ones!</p>
-            <button onclick="getHint()">Get Hint</button>
-            <p id="hint-text"></p>
+    <h1>Sigma Craft</h1>
+    <div>
+        <h2>Available Elements</h2>
+        <div id="available-elements" class="elements">
+            <!-- Starting elements will be added here -->
         </div>
     </div>
-
+    <div class="selected-elements">
+        <h2>Selected Elements</h2>
+        <div id="selected-elements"></div>
+        <button id="combine-button" onclick="combineElements()">Combine</button>
+    </div>
+    <div>
+        <h2>Discovered Elements</h2>
+        <div id="discovered-elements" class="elements">
+            <!-- Discovered elements will be added here -->
+        </div>
+    </div>
     <script src="game.js"></script>
 </body>
 </html>
