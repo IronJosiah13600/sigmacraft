@@ -47,7 +47,7 @@ function updateSelectedElements() {
 
 // Function to add a new element to selected list
 function addToSelected(element) {
-    if (!selectedElements.includes(element)) {
+    if (selectedElements.length < 2 && !selectedElements.includes(element)) {
         selectedElements.push(element);
         updateSelectedElements();
     }
@@ -55,7 +55,7 @@ function addToSelected(element) {
 
 // Function to combine selected elements and discover new ones
 function combineSelectedElements() {
-    if (selectedElements.length >= 2) {
+    if (selectedElements.length === 2) {
         let element1 = selectedElements[0];
         let element2 = selectedElements[1];
 
@@ -79,8 +79,8 @@ function combineSelectedElements() {
         updateSelectedElements();
         updateElementsMenu(); // Update elements menu to include discovered elements
     } else {
-        console.log("Select at least two elements to combine.");
-        // Display a message or alert to select at least two elements
+        console.log("Select exactly two elements to combine.");
+        // Display a message or alert to select exactly two elements
     }
 }
 
@@ -158,12 +158,4 @@ document.addEventListener("DOMContentLoaded", function() {
 let combineButton = document.getElementById("combine-btn");
 combineButton.addEventListener("click", function() {
     combineSelectedElements(); // Combine selected elements
-});
-
-// Ensure event listeners are added to dynamically added buttons
-document.addEventListener("click", function(event) {
-    if (event.target.classList.contains("element")) {
-        let element = event.target.getAttribute("data-element");
-        addToSelected(element); // Add element to selected list
-    }
 });
