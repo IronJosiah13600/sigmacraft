@@ -263,3 +263,4 @@ let combineButton = document.getElementById("combine-btn");
 combineButton.addEventListener("click", function() {
     combineSelectedElements();
 });
+//
