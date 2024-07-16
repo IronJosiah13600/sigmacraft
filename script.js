@@ -50,6 +50,9 @@ function addToSelected(element) {
     if (selectedElements.length < 2 && !selectedElements.includes(element)) {
         selectedElements.push(element);
         updateSelectedElements();
+    } else {
+        console.log("You can only select up to two elements.");
+        // Display a message or alert to inform the user
     }
 }
 
