@@ -8,6 +8,16 @@
 .discovered-container, .elements-container, .selected-container {
     width: 30%;
     margin-bottom: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.discovered-container h2, .elements-container h2, .selected-container h2 {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px;
+    margin-top: 0;
 }
 
 .element {
@@ -15,11 +25,24 @@
     margin-bottom: 5px;
 }
 
-.selected-container, .discovered-container {
-    border: 1px solid #ccc;
-    padding: 10px;
+.selected-container ul, .discovered-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.selected-container li, .discovered-container li {
+    margin-bottom: 5px;
 }
 
 button#combine-btn {
     margin-top: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+button#combine-btn:hover {
+    background-color: #45a049;
 }
