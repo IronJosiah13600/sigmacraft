@@ -3,172 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sigma Craft</title>
+    <title>Sigma Craft - Element Combiner</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
+            text-align: center;
+            margin-top: 50px;
         }
-
-        h1 {
+        #elements {
             margin-top: 20px;
         }
-
-        #elements, #combinations {
-            margin: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            background-color: #fff;
-            width: 80%;
-            max-width: 600px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
         .element {
-            margin: 5px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            background-color: #e0e0e0;
-            cursor: pointer;
+            display: inline-block;
             width: 100px;
-            text-align: center;
-        }
-
-        #selected-elements {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 10px;
-        }
-
-        .selected {
-            border: 2px solid #000;
+            height: 100px;
+            border: 1px solid #ccc;
+            margin: 10px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <h1>Sigma Craft</h1>
+    <h1>Sigma Craft - Element Combiner</h1>
     <div id="elements">
-        <!-- Elements will be displayed here -->
+        <div class="element" id="fire">Fire</div>
+        <div class="element" id="water">Water</div>
+        <div class="element" id="earth">Earth</div>
+        <div class="element" id="air">Air</div>
+        <div class="element" id="steam">Steam</div>
+        <div class="element" id="lava">Lava</div>
+        <div class="element" id="mud">Mud</div>
+        <div class="element" id="stone">Stone</div>
+        <div class="element" id="plant">Plant</div>
+        <div class="element" id="tree">Tree</div>
+        <div class="element" id="animal">Animal</div>
+        <!-- Add more elements as needed -->
     </div>
-    <div id="combinations">
-        <h2>Combine Elements</h2>
-        <div id="selected-elements">
-            <!-- Selected elements will be displayed here -->
-        </div>
-        <button id="combine-button">Combine</button>
+    <div id="output">
+        <h2>Result:</h2>
+        <div id="result"></div>
     </div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const elementsContainer = document.getElementById('elements');
-            const selectedElementsContainer = document.getElementById('selected-elements');
-            const combineButton = document.getElementById('combine-button');
+        const elements = {
+            "fire": {
+                "water": "steam",
+                "earth": "lava",
+                "air": "energy",
+                "stone": "metal",
+                "metal": "tool",
+                // Add more combinations for fire element
+            },
+            "water": {
+                "fire": "steam",
+                "earth": "mud",
+                "air": "rain",
+                "stone": "sand",
+                "sand": "beach",
+                // Add more combinations for water element
+            },
+            "earth": {
+                "fire": "lava",
+                "water": "mud",
+                "air": "dust",
+                "stone": "mountain",
+                "mountain": "volcano",
+                // Add more combinations for earth element
+            },
+            "air": {
+                "fire": "energy",
+                "water": "rain",
+                "earth": "dust",
+                "energy": "wind",
+                "wind": "storm",
+                // Add more combinations for air element
+            },
+            "steam": {
+                "fire": "energy",
+                "water": "cloud",
+                "cloud": "rain",
+                // Add more combinations for steam element
+            },
+            "lava": {
+                "fire": "metal",
+                "water": "stone",
+                "stone": "volcano",
+                // Add more combinations for lava element
+            },
+            "mud": {
+                "water": "plant",
+                "earth": "stone",
+                "plant": "swamp",
+                // Add more combinations for mud element
+            },
+            "stone": {
+                "fire": "metal",
+                "water": "sand",
+                "earth": "mountain",
+                "mountain": "rock",
+                // Add more combinations for stone element
+            },
+            "plant": {
+                "water": "tree",
+                "mud": "swamp",
+                "tree": "fruit",
+                // Add more combinations for plant element
+            },
+            "tree": {
+                "plant": "fruit",
+                "earth": "forest",
+                // Add more combinations for tree element
+            },
+            "animal": {
+                "tree": "bird",
+                // Add more combinations for animal element
+            },
+            // Add more elements and combinations here
+        };
 
-            // Initial elements
-            const elements = ['fire', 'water', 'earth', 'air'];
+        const elementButtons = document.querySelectorAll('.element');
 
-            // All elements that can be discovered through combinations
-            const allElements = new Set([
-                'steam', 'lava', 'rain', 'mud', 'energy', 'dust', 'stone',
-                'metal', 'electricity', 'life', 'plant', 'animal', 'tree',
-                'human', 'sand', 'glass', 'time', 'solar panel', 'telescope',
-                'wind', 'mountain', 'day', 'night', 'rock', 'wood', 'coal',
-                'solar system', 'moon system', 'planet', 'universe', 'galaxy', 'star', 'sun'
-            ]);
-
-            // Combinations and resulting elements
-            const combinations = {
-                'firewater': 'steam',
-                'fireearth': 'lava',
-                'waterair': 'rain',
-                'earthwater': 'mud',
-                'fireair': 'energy',
-                'earthair': 'dust',
-                'earthfire': 'stone',
-                'stonefire': 'metal',
-                'firemetal': 'electricity',
-                'waterlife': 'plant',
-                'earthlife': 'animal',
-                'plantair': 'tree',
-                'treelife': 'human',
-                'sandfire': 'glass',
-                'fireglass': 'time',
-                'sunglass': 'solar panel',
-                'moonglass': 'telescope',
-                'earthwaterairfire': 'life',
-                'energylife': 'human',
-                'timeair': 'wind',
-                'timeearth': 'mountain',
-                'timesun': 'day',
-                'timemoon': 'night',
-                'timemountain': 'rock',
-                'timeplant': 'wood',
-                'timewood': 'coal',
-                'timeanimal': 'human',
-                'galaxysun': 'solar system',
-                'galaxymoon': 'moon system',
-                'earthearth': 'planet',
-                'planet+star': 'sun'
-            };
-
-            let selectedElements = [];
-
-            function renderElements() {
-                elementsContainer.innerHTML = '';
-                elements.forEach(element => {
-                    const div = document.createElement('div');
-                    div.classList.add('element');
-                    div.textContent = element;
-                    div.addEventListener('click', () => selectElement(element));
-                    elementsContainer.appendChild(div);
-                });
-            }
-
-            function renderSelectedElements() {
-                selectedElementsContainer.innerHTML = '';
-                selectedElements.forEach(element => {
-                    const div = document.createElement('div');
-                    div.classList.add('element', 'selected');
-                    div.textContent = element;
-                    selectedElementsContainer.appendChild(div);
-                });
-            }
-
-            function selectElement(element) {
-                if (selectedElements.length < 2) {
-                    selectedElements.push(element);
-                    renderSelectedElements();
-                }
-            }
-
-            function combineElements() {
-                if (selectedElements.length === 2) {
-                    const combinationKey = selectedElements.sort().join('+');
-                    const result = combinations[combinationKey];
-
-                    if (result && !elements.includes(result)) {
-                        elements.push(result);
-                        alert(`You created: ${result}`);
-                        renderElements();
-                    } else {
-                        alert('Combination does not exist or already discovered.');
-                    }
-
-                    selectedElements = [];
-                    renderSelectedElements();
-                }
-            }
-
-            combineButton.addEventListener('click', combineElements);
-
-            renderElements();
+        elementButtons.forEach(button => {
+            button.addEventListener('click', combineElements);
         });
+
+        function combineElements() {
+            const firstElement = this.id;
+            const secondElement = prompt(`Combine ${firstElement} with:`);
+            const result = elements[firstElement][secondElement];
+            if (result) {
+                document.getElementById('result').innerText = `${firstElement} + ${secondElement} = ${result}`;
+            } else {
+                document.getElementById('result').innerText = "Invalid combination!";
+            }
+        }
     </script>
 </body>
 </html>
