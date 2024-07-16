@@ -26,7 +26,7 @@
             width: 20,
             height: 20,
             gravity: 0.6,
-            lift: -15,
+            lift: -10, // Reduced jump height
             velocity: 0,
             jump: function() {
                 this.velocity = this.lift;
@@ -48,8 +48,50 @@
             draw: function() {
                 ctx.fillStyle = '#FF5733';
                 ctx.fillRect(this.x, this.y, this.width, this.height);
+            },
+            isColliding: function(pipe) {
+                if (this.x < pipe.x + pipe.width &&
+                    this.x + this.width > pipe.x &&
+                    this.y < pipe.y + pipe.height &&
+                    this.y + this.height > pipe.y) {
+                    return true;
+                }
+                return false;
             }
         };
+
+        // Pipe object
+        function Pipe(x) {
+            this.x = x;
+            this.y = Math.floor(Math.random() * (canvas.height - 200)) + 100;
+            this.width = 40;
+            this.height = canvas.height - this.y;
+            this.speed = 2;
+
+            this.draw = function() {
+                ctx.fillStyle = '#2E7D32';
+                ctx.fillRect(this.x, 0, this.width, this.y); // Top pipe
+                ctx.fillRect(this.x, this.y + this.height, this.width, canvas.height - (this.y + this.height)); // Bottom pipe
+            };
+
+            this.update = function() {
+                this.x -= this.speed;
+                if (this.x + this.width < 0) {
+                    pipes.shift(); // Remove pipe when it goes off-screen
+                }
+            };
+        }
+
+        let pipes = [];
+        let pipeInterval = 150; // Interval between pipes
+
+        // Generate new pipes at intervals
+        function generatePipes() {
+            let x = canvas.width;
+            let pipe = new Pipe(x);
+            pipes.push(pipe);
+            setTimeout(generatePipes, pipeInterval);
+        }
 
         // Game loop
         function gameLoop() {
@@ -57,6 +99,18 @@
             
             bird.update();
             bird.draw();
+
+            for (let i = pipes.length - 1; i >= 0; i--) {
+                pipes[i].update();
+                pipes[i].draw();
+
+                // Check collision
+                if (bird.isColliding(pipes[i])) {
+                    alert('Game Over!'); // You can replace this with more sophisticated game over logic
+                    location.reload(); // Reload the game
+                    return;
+                }
+            }
 
             requestAnimationFrame(gameLoop);
         }
@@ -68,7 +122,8 @@
             }
         });
 
-        // Start the game loop
+        // Start the game loop and pipe generation
+        generatePipes();
         gameLoop();
     </script>
 </body>
