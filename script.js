@@ -119,6 +119,8 @@ function updateDiscoveredList() {
         li.textContent = element;
         discoveredList.appendChild(li);
     });
+
+    updateElementsMenu(); // Update elements menu with newly discovered elements
 }
 
 // Function to update the elements menu with discovered elements
