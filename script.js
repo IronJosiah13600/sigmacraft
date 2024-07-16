@@ -27,6 +27,157 @@ let elements = {
         }
     },
     // Additional elements and combinations
+    "dust": {
+        combinations: {
+            "fire": "ash"
+        }
+    },
+    "lava": {
+        combinations: {
+            "water": "stone"
+        }
+    },
+    "mud": {
+        combinations: {
+            "fire": "brick"
+        }
+    },
+    "energy": {
+        combinations: {
+            "air": "wind"
+        }
+    },
+    "mist": {
+        combinations: {
+            "air": "cloud"
+        }
+    },
+    "steam": {
+        combinations: {
+            "air": "cloud",
+            "fire": "energy"
+        }
+    },
+    "ash": {
+        combinations: {
+            "water": "salt"
+        }
+    },
+    "stone": {
+        combinations: {
+            "fire": "metal"
+        }
+    },
+    "brick": {
+        combinations: {
+            "water": "wall"
+        }
+    },
+    "wind": {
+        combinations: {
+            "air": "storm"
+        }
+    },
+    "cloud": {
+        combinations: {
+            "air": "sky"
+        }
+    },
+    "salt": {
+        combinations: {
+            "fire": "salt"
+        }
+    },
+    "metal": {
+        combinations: {
+            "fire": "iron"
+        }
+    },
+    "wall": {
+        combinations: {
+            "fire": "house"
+        }
+    },
+    "storm": {
+        combinations: {
+            "air": "thunder"
+        }
+    },
+    "sky": {
+        combinations: {
+            "air": "bird"
+        }
+    },
+    "iron": {
+        combinations: {
+            "fire": "steel"
+        }
+    },
+    "house": {
+        combinations: {
+            "fire": "village"
+        }
+    },
+    "thunder": {
+        combinations: {
+            "air": "lightning"
+        }
+    },
+    "bird": {
+        combinations: {
+            "air": "pigeon"
+        }
+    },
+    "steel": {
+        combinations: {
+            "fire": "sword"
+        }
+    },
+    "village": {
+        combinations: {
+            "fire": "city"
+        }
+    },
+    "lightning": {
+        combinations: {
+            "air": "electricity"
+        }
+    },
+    "pigeon": {
+        combinations: {
+            "air": "dove"
+        }
+    },
+    "sword": {
+        combinations: {
+            "fire": "forge"
+        }
+    },
+    "city": {
+        combinations: {
+            "fire": "metropolis"
+        }
+    },
+    "electricity": {
+        combinations: {
+            "air": "energy"
+        }
+    },
+    "dove": {
+        combinations: {
+            "air": "peace"
+        }
+    },
+    "forge": {
+        combinations: {
+            "fire": "hammer"
+        }
+    },
+    "metropolis": {
+        combinations: {
+            "fire": "skyscraper"
+        }
+    },
     // ... (all 25 elements and their combinations)
 };
 
