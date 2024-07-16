@@ -1,3 +1,4 @@
+let discoveredElements = ["earth", "air", "fire", "water"];
 let elements = {
     "earth": {
         combinations: {
