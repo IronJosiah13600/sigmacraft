@@ -25,17 +25,24 @@
     margin-bottom: 5px;
 }
 
-.selected-container ul, .discovered-container ul {
+.selected-container {
+    position: relative; /* Make the container relative for absolute positioning */
+}
+
+.selected-container ul {
     list-style-type: none;
     padding: 0;
 }
 
-.selected-container li, .discovered-container li {
+.selected-container li {
     margin-bottom: 5px;
 }
 
 button#combine-btn {
-    margin-top: 10px;
+    position: absolute;
+    bottom: -30px; /* Adjust as needed for spacing */
+    left: 50%;
+    transform: translateX(-50%);
     background-color: #4CAF50;
     color: white;
     border: none;
