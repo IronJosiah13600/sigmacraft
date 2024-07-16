@@ -19,7 +19,7 @@
             margin-top: 20px;
         }
 
-        #elements, #combinations, #menu {
+        #elements, #combinations {
             margin: 20px;
             padding: 10px;
             border: 1px solid #ccc;
@@ -50,19 +50,6 @@
         .selected {
             border: 2px solid #000;
         }
-
-        #menu {
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-        }
-
-        .menu-element {
-            padding: 5px 10px;
-            border: 1px solid #ccc;
-            background-color: #e0e0e0;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
@@ -77,31 +64,27 @@
         </div>
         <button id="combine-button">Combine</button>
     </div>
-    <div id="menu">
-        <div class="menu-element" draggable="true" id="drag-fire">Fire</div>
-        <div class="menu-element" draggable="true" id="drag-water">Water</div>
-        <div class="menu-element" draggable="true" id="drag-earth">Earth</div>
-        <div class="menu-element" draggable="true" id="drag-air">Air</div>
-    </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const elementsContainer = document.getElementById('elements');
             const selectedElementsContainer = document.getElementById('selected-elements');
             const combineButton = document.getElementById('combine-button');
-            const dragElements = document.querySelectorAll('.menu-element');
+
+            // Initial elements
             let elements = ['fire', 'water', 'earth', 'air'];
 
-            // Combinations and resulting elements
-            const combinations = {
-                'firewater': 'steam',
-                'fireearth': 'lava',
-                'waterair': 'rain',
-                'earthwater': 'mud'
-            };
+            let combinations = {};
+
+            // Fetch combinations from JSON file
+            fetch('combinations.json')
+                .then(response => response.json())
+                .then(data => {
+                    combinations = data;
+                    renderElements();
+                });
 
             let selectedElements = [];
 
-            // Render elements on the page
             function renderElements() {
                 elementsContainer.innerHTML = '';
                 elements.forEach(element => {
@@ -113,21 +96,16 @@
                 });
             }
 
-            // Render selected elements with drag and drop functionality
             function renderSelectedElements() {
                 selectedElementsContainer.innerHTML = '';
                 selectedElements.forEach(element => {
                     const div = document.createElement('div');
                     div.classList.add('element', 'selected');
                     div.textContent = element;
-                    div.addEventListener('click', () => selectElement(element));
-                    div.addEventListener('dragover', (event) => event.preventDefault());
-                    div.addEventListener('drop', (event) => dropElement(event, element));
                     selectedElementsContainer.appendChild(div);
                 });
             }
 
-            // Select an element to combine
             function selectElement(element) {
                 if (selectedElements.length < 2) {
                     selectedElements.push(element);
@@ -135,7 +113,6 @@
                 }
             }
 
-            // Combine selected elements
             function combineElements() {
                 if (selectedElements.length === 2) {
                     const combinationKey = selectedElements.sort().join('');
@@ -154,37 +131,7 @@
                 }
             }
 
-            // Drag and drop functionality
-            dragElements.forEach(dragElement => {
-                dragElement.addEventListener('dragstart', (event) => {
-                    event.dataTransfer.setData('text/plain', dragElement.id);
-                });
-            });
-
-            function dropElement(event, targetElement) {
-                event.preventDefault();
-                const draggedElementId = event.dataTransfer.getData('text/plain');
-                const draggedElement = document.getElementById(draggedElementId);
-                targetElement = targetElement.toLowerCase(); // Ensure target element is lowercase
-                const combinationKey = `${draggedElement.textContent.toLowerCase()}${targetElement}`;
-                const result = combinations[combinationKey];
-
-                if (result && !elements.includes(result)) {
-                    elements.push(result);
-                    alert(`You created: ${result}`);
-                    renderElements();
-                } else {
-                    alert('Combination does not exist or already discovered.');
-                }
-
-                renderSelectedElements();
-            }
-
-            // Combine button click event
             combineButton.addEventListener('click', combineElements);
-
-            // Initial render
-            renderElements();
         });
     </script>
 </body>
