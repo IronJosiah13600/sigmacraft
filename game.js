@@ -18,6 +18,11 @@ function combineElements() {
     let element1 = document.getElementById('element1').value.toLowerCase();
     let element2 = document.getElementById('element2').value.toLowerCase();
     
+    if (!discoveredElements.includes(element1) || !discoveredElements.includes(element2)) {
+        document.getElementById('combination-result').textContent = "You can only combine discovered elements!";
+        return;
+    }
+    
     let newElement = combine(element1, element2);
     
     if (newElement && !discoveredElements.includes(newElement)) {
