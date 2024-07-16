@@ -4,245 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sigma Craft</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 20px;
-            text-align: center;
-        }
-
-        h1, h2 {
-            color: #333;
-        }
-
-        #game {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-        }
-
-        #elements, #combinations, #player {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 30%;
-            text-align: left;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            cursor: pointer;
-            padding: 10px 20px;
-            margin-bottom: 5px;
-            background-color: #e0e0e0;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        li:hover {
-            background-color: #d0d0d0;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Sigma Craft</h1>
-    
-    <div id="game">
-        <div id="elements">
-            <h2>Elements</h2>
-            <ul id="element-list">
-                <!-- Elements will be dynamically added here -->
-            </ul>
-        </div>
-
-        <div id="combinations">
-            <h2>Combinations</h2>
-            <ul id="combination-list">
-                <!-- Combinations will be dynamically added here -->
-            </ul>
-        </div>
-
-        <div id="player">
-            <h2>Player's Selections</h2>
-            <ul id="player-list">
-                <!-- Player's selections will be dynamically added here -->
-            </ul>
-        </div>
+    <div id="elements">
+        <!-- Elements will be displayed here -->
     </div>
-
+    <div id="combinations">
+        <h2>Combine Elements</h2>
+        <div id="selected-elements">
+            <!-- Selected elements will be displayed here -->
+        </div>
+        <button id="combine-button">Combine</button>
+    </div>
+    <script src="script.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Initial elements and combinations (50 elements)
-            const elements = [
-                "fire", "water", "air", "earth", "steam", "lava", "rain", "mud", "planet", "star",
-                "galaxy", "sun", "energy", "plasma", "metal", "electricity", "sea", "lightning",
-                "dust", "wind", "sand", "brick", "volcano", "cloud", "rainbow", "swamp", "life",
-                "algae", "animal", "bird", "fish", "phoenix", "horse", "pegasus", "house", "swimmer",
-                "breath", "village", "city", "country", "war", "island", "continent", "solarsystem",
-                "universe", "smoke", "coal", "alcohol"
-                // Add more elements to reach 50
-            ];
-
-            const combinations = {
-                "firewater": "steam",
-                "fireearth": "lava",
-                "waterair": "rain",
-                "earthwater": "mud",
-                "earthearth": "planet",
-                "planetfire": "star",
-                "planetplanet": "galaxy",
-                "fireplanet": "sun",
-                "fireair": "energy",
-                "fireenergy": "plasma",
-                "earthplasma": "metal",
-                "waterplasma": "electricity",
-                "waterwater": "sea",
-                "airplasma": "lightning",
-                "airearth": "dust",
-                "airdust": "wind",
-                "earthdust": "sand",
-                "firemud": "brick",
-                "earthlava": "volcano",
-                "watersteam": "cloud",
-                "watercloud": "rainbow",
-                "watermud": "swamp",
-                "swampenergy": "life",
-                "waterlife": "algae",
-                "earthlife": "animal",
-                "airanimal": "bird",
-                "wateranimal": "fish",
-                "fireanimal": "phoenix",
-                "earthanimal": "horse",
-                "airhorse": "pegasus",
-                "earthhuman": "house",
-                "waterhuman": "swimmer",
-                "airhuman": "breath",
-                "earthhouse": "village",
-                "firevillage": "city",
-                "earthcity": "country",
-                "firecountry": "war",
-                "watercountry": "island",
-                "earthisland": "continent",
-                "aircontinent": "planet",
-                "solarsystem": "galaxy",
-                "galaxies": "universe",
-                "airfire": "smoke",
-                "earthfire": "coal",
-                "airwater": "steam",
-                "fireearth": "metal",
-                "airlife": "bird",
-                "waterlife": "plankton",
-                "firelife": "phoenix",
-                "airmetal": "rust",
-                "watermetal": "quicksilver",
-                "earthmetal": "tool",
-                "firemetal": "steel",
-                "airplant": "pollen",
-                "waterplant": "seaweed",
-                "earthplant": "tree",
-                "fireplant": "ash",
-                "waterbird": "duck",
-                "earthbird": "ostrich",
-                "airbird": "eagle",
-                "firebird": "phoenix",
-                "waterfish": "dolphin",
-                "earthfish": "turtle",
-                "airfish": "flying fish",
-                "firefish": "cooked fish",
-                "wateranimal": "frog",
-                "earthanimal": "mole",
-                "airanimal": "bat",
-                "fireanimal": "dragon",
-                "waterinsect": "mosquito",
-                "earthinsect": "ant",
-                "airinsect": "butterfly",
-                "fireinsect": "firefly",
-                "waterlizard": "frog",
-                "earthlizard": "snake",
-                "airlizard": "dragon",
-                "firelizard": "salamander",
-                "waterrock": "sand",
-                "earthrock": "boulder",
-                "airrock": "sandstorm",
-                "firerock": "lava rock",
-                "firealcohol": "energy",
-                "waterbacteria": "plankton",
-                "earthbacteria": "mushroom",
-                "airbacteria": "germ",
-                "firebacteria": "virus",
-                "airbat": "vampire",
-                "waterbat": "beaver",
-                "earthbat": "mouse",
-                "firebat": "dragon",
-                "airboat": "sailboat",
-                "waterboat": "ship",
-                "earthboat": "raft",
-                "fireboat": "steamboat",
-                "aircactus": "desert",
-                "watercactus": "aloe",
-                "earthcactus": "cactus",
-                "firecactus": "ash",
-                "aircar": "airplane",
-                "watercar": "submarine",
-                "earthcar": "truck",
-                "firecar": "race car",
-                "aircity": "skyscraper",
-                "watercity": "flood",
-                "earthcity": "concrete",
-                "firecity": "riot",
-                "aircloud": "storm",
-                "watercloud": "rainbow",
-                "earthcloud": "smog",
-                "firecloud": "sun",
-                "aircomputer": "internet",
-                "watercomputer": "database",
-                "earthcomputer": "robot",
-                "firecomputer": "burnt computer",
-                "aircow": "milk",
-                "watercow": "milk",
-                "earthcow": "manure",
-                "firecow": "steak",
-                "airdinosaur": "pterodactyl",
-                "waterdinosaur": "plesiosaur",
-                "earthdinosaur": "triceratops",
-                "firedinosaur": "dragon",
-                "airdolphin": "porpoise",
-                "waterdolphin": "whale",
-                "earthdolphin": "beach",
-                "firedolphin": "cooked fish",
-                "airduck": "swan",
-                "waterduck": "duckling",
-                "earthduck": "farm",
-                "fireduck": "roast duck",
-                "airhuman": "angel",
-                "waterhuman": "mermaid",
-                "earthhuman": "farmer",
-                "firehuman": "hero"
-                // Add more combinations to reach 50
-            };
-
-            // Display initial elements and combinations
-            const elementList = document.getElementById("element-list");
-            elements.forEach(element => {
-                const li = document.createElement("li");
-                li.textContent = element;
-                elementList.appendChild(li);
+        // Example JavaScript to add elements dynamically
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simulating adding elements dynamically
+            var elementsContainer = document.getElementById('elements');
+            var selectedElementsContainer = document.getElementById('selected-elements');
+            
+            // Example elements to add
+            var elements = ['Fire', 'Water', 'Earth', 'Air'];
+            
+            // Add elements to the #elements div
+            elements.forEach(function(element) {
+                var elementDiv = document.createElement('div');
+                elementDiv.textContent = element;
+                elementsContainer.appendChild(elementDiv);
             });
-
-            const combinationList = document.getElementById("combination-list");
-            Object.keys(combinations).forEach(combination => {
-                const li = document.createElement("li");
-                li.textContent = `${combination} -> ${combinations[combination]}`;
-                combinationList.appendChild(li);
+            
+            // Example selected elements (for combining)
+            var selectedElements = ['Fire', 'Water'];
+            
+            // Add selected elements to the #selected-elements div
+            selectedElements.forEach(function(element) {
+                var selectedElementDiv = document.createElement('div');
+                selectedElementDiv.textContent = element;
+                selectedElementsContainer.appendChild(selectedElementDiv);
             });
-
-            // Handle interactions or game logic here
+            
+            // Example combine function
+            var combineButton = document.getElementById('combine-button');
+            combineButton.addEventListener('click', function() {
+                // Combine logic here
+                alert('Combining elements: ' + selectedElements.join(', '));
+            });
         });
     </script>
 </body>
