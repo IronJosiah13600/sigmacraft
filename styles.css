@@ -5,6 +5,12 @@
     margin-top: 20px;
 }
 
+.game-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
 .discovered-container, .elements-container, .selected-container {
     width: 30%;
     margin-bottom: 20px;
