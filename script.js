@@ -1851,6 +1851,29 @@ function showNewElementMessage(element) {
     }, 3000); // Hide the message after 3 seconds
 }
 
+// Function to combine elements
+function combineElements() {
+    if (selectedElements.length === 2) {
+        const element1 = selectedElements[0];
+        const element2 = selectedElements[1];
+        const newElement = combinations[element1][element2];
+
+        if (newElement) {
+            // Show message for new element created
+            alert(`New element created: ${newElement}`);
+
+            // Add the new element to discovered elements
+            discoveredElements.push(newElement);
+
+            // Clear selected elements
+            selectedElements = [];
+
+            // Update UI
+            updateUI();
+        }
+    }
+}
+
 // Add event listeners for initial element buttons
 document.addEventListener("DOMContentLoaded", function() {
     updateElementsMenu(); // Initial update of elements menu
