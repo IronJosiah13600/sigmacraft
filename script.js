@@ -126,7 +126,7 @@ function updateElementsMenu() {
     discoveredElements.forEach(element => {
         const button = document.createElement('button');
         button.textContent = element;
-        button.style.backgroundColor = '#03fc3d';
+        button.style.backgroundColor = '#49e688';
         button.onclick = () => selectElement(element);
         elementsMenu.appendChild(button);
     });
