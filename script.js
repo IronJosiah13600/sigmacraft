@@ -151,6 +151,7 @@ combineButton.onclick = () => {
     if (selectedElements.length === 2) {
         const [element1, element2] = selectedElements;
         const newElement = combinations[element1]?.[element2] || combinations[element2]?.[element1];
+
         if (newElement && !discoveredElements.includes(newElement)) {
             discoveredElements.push(newElement);
             alert(`New element created: ${newElement}`);
